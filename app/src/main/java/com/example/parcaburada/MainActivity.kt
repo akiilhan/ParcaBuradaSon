@@ -9,14 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.*
+import com.example.parcaburada.ui.aracYedekParca.Opel.OpelYedekParcaFragment
+import com.example.parcaburada.ui.aracYedekParca.chevrolet.ChevroletYedekParcaFragment
+import com.example.parcaburada.ui.kategori.KategoriFragment
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,MyItemClickListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    MyItemClickListener {
 
-
+    var manager = supportFragmentManager
     private lateinit var mToolbar: Toolbar
     private lateinit var mDrawerLayout: DrawerLayout
     private lateinit var mNavController: NavController
@@ -45,7 +50,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mNavigationView = findViewById(R.id.nav_view)
         mNavController = Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment)
 
-        NavigationUI.setupActionBarWithNavController(this@MainActivity, mNavController, mDrawerLayout)
+        NavigationUI.setupActionBarWithNavController(
+            this@MainActivity,
+            mNavController,
+            mDrawerLayout
+        )
         NavigationUI.setupWithNavController(mNavigationView, mNavController)
         mNavigationView.setNavigationItemSelectedListener(this)
         //Navigation Drawer
@@ -77,9 +86,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_share -> navigateToFragment(R.id.nav_share)
             R.id.nav_send -> navigateToFragment(R.id.nav_send)
             R.id.nav_sepet -> navigateToFragment(R.id.nav_sepet)
+
         }
+
         return true
     }
+
 
     //Back button
     override fun onBackPressed() {
@@ -112,13 +124,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun userItemClick(position: Int) {
-        //super.userItemClick(position) No need of it.
-        when (position) {
-            0 ->{
 
-                Log.e("aki","opel: "+position)
+        when (position) {
+            0 -> {
+
+                var fragopel = OpelYedekParcaFragment()
+                var transaction = manager.beginTransaction()
+                transaction.replace(R.id.content_main_container, fragopel)
+                transaction.addToBackStack(null)
+                transaction.commit()
+
+
+                Log.e("aki", "opel: " + position)
             } //start a fragment
-                1 ->{ Log.e("aki","chevrolet: "+position)} //start a fragment
+            1 -> {
+
+                var fragmentChevrolet = ChevroletYedekParcaFragment()
+                var transaction = manager.beginTransaction()
+                transaction.replace(R.id.content_main_container, fragmentChevrolet, "b")
+                transaction.addToBackStack(null)
+                transaction.commit()
+                Log.e("aki", "chevrolet: " + position)
+            } //start a fragment
         }
     }
+
+
 }

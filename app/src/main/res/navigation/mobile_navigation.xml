@@ -45,4 +45,14 @@
         android:name="com.example.parcaburada.ui.sepet.SepetFragment"
         android:label="@string/menu_sepet"
         tools:layout="@layout/fragment_sepet" />
+    <fragment
+        android:id="@+id/opelYedekParcaFragment"
+        android:name="com.example.parcaburada.ui.aracYedekParca.Opel.OpelYedekParcaFragment"
+        android:label="fragment_opel_yedek_parca"
+        tools:layout="@layout/fragment_opel_yedek_parca" />
+    <fragment
+        android:id="@+id/chevroletYedekParcaFragment"
+        android:name="com.example.parcaburada.ui.aracYedekParca.chevrolet.ChevroletYedekParcaFragment"
+        android:label="fragment_chevrolet_yedek_parca"
+        tools:layout="@layout/fragment_chevrolet_yedek_parca" />
 </navigation>
